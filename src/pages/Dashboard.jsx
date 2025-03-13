@@ -1,16 +1,41 @@
 import React,  { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import MultiSelectDropdown from "../components/MultiSelectDropdown";
 import "./Dashboard.scss";
 
 function Dashboard() {
     const navigate = useNavigate()
     const [dogs, setDogs] = useState([]);
-    const [breedFilter, setBreedFilter] = useState("");
+    const [breedsData, setBreeds] = useState([]);
+    const [selectedBreeds, setSelectedBreeds] = useState([]);
     const [sortOrder, setSortOrder] = useState("asc");
 
     useEffect(() => {
         fetchDogs();
-    }, [breedFilter, sortOrder]);
+        fetchBreeds();
+    }, [sortOrder]);
+    const fetchBreeds = async () => {
+        try {
+          const response = await fetch(
+            "https://frontend-take-home-service.fetch.com/dogs/breeds",
+            { credentials: "include" }
+          );
+    
+          if (response.status === 401) {
+            navigate("/login");
+            return;
+          }
+    
+          if (response.status === 200) {
+            const breedsData = await response.json();
+            setBreeds(breedsData);
+          } else {
+            console.error("Failed to fetch breeds");
+          }
+        } catch (error) {
+          console.error("Error fetching breeds:", error);
+        }
+    };
 
     const fetchDogs = async () => {
         try {
@@ -66,11 +91,26 @@ function Dashboard() {
     }
     };
 
+
   return (
     <>
     <div>
       <h2>Dashboard</h2>
       <p>Welcome to the protected dashboard!</p>
+    </div>
+    <h3>Find your purrfect match!</h3>
+    <div>
+      <MultiSelectDropdown
+        options={breedsData}
+        selectedOptions={selectedBreeds}
+        onChange={setSelectedBreeds}
+        placeholder="Select breeds..."
+      />
+    </div>
+    <div>
+    <button onClick={fetchDogs} className="search-button">
+  Search
+</button>
     </div>
     <div className="dog-container">
     {dogs.map((dog) => (
