@@ -11,9 +11,10 @@ function Dashboard() {
     const [sortOrder, setSortOrder] = useState("asc");
 
     useEffect(() => {
-        fetchDogs();
         fetchBreeds();
+        fetchDogs();
     }, [sortOrder]);
+
     const fetchBreeds = async () => {
         try {
           const response = await fetch(
@@ -40,7 +41,9 @@ function Dashboard() {
     const fetchDogs = async () => {
         try {
           const params = new URLSearchParams();
-            // params.append("breeds", breedFilter);
+          if (selectedBreeds && selectedBreeds.length > 0) {
+            selectedBreeds.forEach(breed => params.append("breeds", breed));
+          }
             // params.append("zipCodes", zipCodes);
             // params.append("ageMin", ageMin);
             // params.append("ageMax", ageMax);
