@@ -143,140 +143,155 @@ function Dashboard() {
 
   return (
     <>
-      <div>
+      {/* Header Section */}
+      <header className="dashboard-header">
         <h2>Dashboard</h2>
         <p>Welcome to the protected dashboard!</p>
-      </div>
-      <h3>Find your purrfect match!</h3>
-      <button
-        onClick={() => navigate("/favourites")}
-        className="favourites-button"
-      >
-        View Favourites
-      </button>
-      <div>
-        <MultiSelectDropdown
-          options={breedsData}
-          selectedOptions={selectedBreeds}
-          onChange={setSelectedBreeds}
-          placeholder="Select breeds..."
-        />
-      </div>
-      <div className="zip-code-search">
-        <label>
-          Zip Codes:
-          <input
-            type="text"
-            placeholder="Enter zip code"
-            value={zipInput}
-            onChange={(e) => setZipInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                addZipCode();
-              }
-            }}
-          />
-        </label>
-        <button onClick={addZipCode} className="add-zip-button">
-          Add
-        </button>
-      </div>
-      <div className="zip-code-chips">
-        {zipCodes.map((zip) => (
-          <span key={zip} className="chip">
-            {zip} <button onClick={() => removeZipCode(zip)}>×</button>
-          </span>
-        ))}
-      </div>
-      <div className="search-filters">
-        <label>
-          Minimum Age:
-          <input
-            type="number"
-            value={ageMin}
-            onChange={(e) => setAgeMin(e.target.value)}
-            placeholder="e.g. 1"
-          />
-        </label>
-        <label>
-          Maximum Age:
-          <input
-            type="number"
-            value={ageMax}
-            onChange={(e) => setAgeMax(e.target.value)}
-            placeholder="e.g. 10"
-          />
-        </label>
-      </div>
-      <div>
-        <button onClick={() => fetchDogs()} className="search-button">
-          Search
-        </button>
-      </div>
-      <div className="sort-controls">
+        <h3>Find your purrfect match!</h3>
         <button
-          onClick={() =>
-            setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
-          }
-          className="sort-button"
+          onClick={() => navigate("/favourites")}
+          className="favourites-button"
         >
-          Toggle Sort Order (Current:{" "}
-          {sortOrder === "asc" ? "Ascending" : "Descending"})
+          View Favourites
         </button>
-      </div>
+      </header>
 
-      <div className="dog-container">
-        {dogs.map((dog) => (
-          <div key={dog.id} className="dog-card">
-            <img src={dog.img} alt={dog.name} className="dog-image" />
-            <div className="dog-details">
-              <p>
-                <strong>Name:</strong> {dog.name}
-              </p>
-              <p>
-                <strong>Age:</strong> {dog.age}
-              </p>
-              <p>
-                <strong>Breed:</strong> {dog.breed}
-              </p>
-              <p>
-                <strong>Zip Code:</strong> {dog.zip_code}
-              </p>
-            </div>
-            <button
-              onClick={() => toggleFavourite(dog.id)}
-              className={`favourite-button ${
-                favouriteIds.includes(dog.id) ? "active" : ""
-              }`}
-            >
-              {favouriteIds.includes(dog.id) ? "❤️" : "🤍"}
+      {/* Search Controls Section */}
+      <section className="search-controls">
+        {/* Breed Dropdown */}
+        <div className="dropdown-section">
+          <MultiSelectDropdown
+            options={breedsData}
+            selectedOptions={selectedBreeds}
+            onChange={setSelectedBreeds}
+            placeholder="Select breeds..."
+          />
+        </div>
+
+        {/* Zip Code Search */}
+        <div className="zip-search-section">
+          <div className="zip-code-search">
+            <label>
+              Zip Codes:
+              <input
+                type="text"
+                placeholder="Enter zip code"
+                value={zipInput}
+                onChange={(e) => setZipInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addZipCode();
+                  }
+                }}
+              />
+            </label>
+            <button onClick={addZipCode} className="add-zip-button">
+              Add
             </button>
           </div>
-        ))}
-      </div>
-      <div>
-        <div className="pagination">
-          {prevPageUrl && (
-            <button
-              onClick={() => fetchDogs(prevPageUrl)}
-              className="search-button"
-            >
-              Previous Page
-            </button>
-          )}
+          <div className="zip-code-chips">
+            {zipCodes.map((zip) => (
+              <span key={zip} className="chip">
+                {zip} <button onClick={() => removeZipCode(zip)}>×</button>
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="pagination">
-          {nextPageUrl && (
-            <button
-              onClick={() => fetchDogs(nextPageUrl)}
-              className="search-button"
-            >
-              Next Page
-            </button>
-          )}
+
+        {/* Age Filters */}
+        <div className="age-filters">
+          <label>
+            Minimum Age:
+            <input
+              type="number"
+              value={ageMin}
+              onChange={(e) => setAgeMin(e.target.value)}
+              placeholder="e.g. 1"
+            />
+          </label>
+          <label>
+            Maximum Age:
+            <input
+              type="number"
+              value={ageMax}
+              onChange={(e) => setAgeMax(e.target.value)}
+              placeholder="e.g. 10"
+            />
+          </label>
         </div>
-      </div>
+
+        {/* Search and Sort Actions */}
+        <div className="action-controls">
+          <button onClick={() => fetchDogs()} className="search-button">
+            Search
+          </button>
+          <div className="sort-controls">
+            <button
+              onClick={() =>
+                setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
+              }
+              className="sort-button"
+            >
+              Toggle Sort Order (Current:{" "}
+              {sortOrder === "asc" ? "Ascending" : "Descending"})
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="results">
+        <div className="dog-container">
+          {dogs.map((dog) => (
+            <div key={dog.id} className="dog-card">
+              <img src={dog.img} alt={dog.name} className="dog-image" />
+              <div className="dog-details">
+                <p>
+                  <strong>Name:</strong> {dog.name}
+                </p>
+                <p>
+                  <strong>Age:</strong> {dog.age}
+                </p>
+                <p>
+                  <strong>Breed:</strong> {dog.breed}
+                </p>
+                <p>
+                  <strong>Zip Code:</strong> {dog.zip_code}
+                </p>
+              </div>
+              <button
+                onClick={() => toggleFavourite(dog.id)}
+                className={`favourite-button ${
+                  favouriteIds.includes(dog.id) ? "active" : ""
+                }`}
+              >
+                {favouriteIds.includes(dog.id) ? "❤️" : "🤍"}
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pagination Section */}
+      <footer className="pagination-controls">
+        {prevPageUrl && (
+          <button
+            onClick={() => fetchDogs(prevPageUrl)}
+            className="pagination-button"
+          >
+            Previous Page
+          </button>
+        )}
+        {nextPageUrl && (
+          <button
+            onClick={() => fetchDogs(nextPageUrl)}
+            className="pagination-button"
+          >
+            Next Page
+          </button>
+        )}
+      </footer>
     </>
   );
 }
