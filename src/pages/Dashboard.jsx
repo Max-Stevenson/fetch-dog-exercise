@@ -12,6 +12,11 @@ function Dashboard() {
   const [prevPageUrl, setPrevPageUrl] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
 
+  const [favouriteIds, setFavouriteIds] = useState(() => {
+    const saved = localStorage.getItem("favouriteIds");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   useEffect(() => {
     fetchBreeds();
   }, []);
@@ -102,6 +107,16 @@ function Dashboard() {
     }
   };
 
+  const toggleFavourite = (dogId) => {
+    setFavouriteIds((prev) => {
+      const updated = prev.includes(dogId)
+        ? prev.filter((id) => id !== dogId)
+        : [...prev, dogId];
+      localStorage.setItem("favouriteIds", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   return (
     <>
       <div>
@@ -109,6 +124,12 @@ function Dashboard() {
         <p>Welcome to the protected dashboard!</p>
       </div>
       <h3>Find your purrfect match!</h3>
+      <button
+        onClick={() => navigate("/favourites")}
+        className="favourites-button"
+      >
+        View Favourites
+      </button>
       <div>
         <MultiSelectDropdown
           options={breedsData}
@@ -152,6 +173,14 @@ function Dashboard() {
                 <strong>Zip Code:</strong> {dog.zip_code}
               </p>
             </div>
+            <button
+              onClick={() => toggleFavourite(dog.id)}
+              className={`favourite-button ${
+                favouriteIds.includes(dog.id) ? "active" : ""
+              }`}
+            >
+              {favouriteIds.includes(dog.id) ? "❤️" : "🤍"}
+            </button>
           </div>
         ))}
       </div>
