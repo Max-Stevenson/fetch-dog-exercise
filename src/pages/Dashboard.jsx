@@ -11,11 +11,12 @@ function Dashboard() {
   const [nextPageUrl, setNextPageUrl] = useState(null);
   const [prevPageUrl, setPrevPageUrl] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-
   const [favouriteIds, setFavouriteIds] = useState(() => {
     const saved = localStorage.getItem("favouriteIds");
     return saved ? JSON.parse(saved) : [];
   });
+  const [ageMin, setAgeMin] = useState("");
+  const [ageMax, setAgeMax] = useState("");
 
   useEffect(() => {
     fetchBreeds();
@@ -29,6 +30,12 @@ function Dashboard() {
     const params = new URLSearchParams();
     if (selectedBreeds && selectedBreeds.length > 0) {
       selectedBreeds.forEach((breed) => params.append("breeds", breed));
+    }
+    if (ageMin) {
+      params.append("ageMin", ageMin);
+    }
+    if (ageMax) {
+      params.append("ageMax", ageMax);
     }
     params.append("sort", `breed:${sortOrder}`);
     return `https://frontend-take-home-service.fetch.com/dogs/search?${params.toString()}`;
@@ -137,6 +144,26 @@ function Dashboard() {
           onChange={setSelectedBreeds}
           placeholder="Select breeds..."
         />
+      </div>
+      <div className="search-filters">
+        <label>
+          Minimum Age:
+          <input
+            type="number"
+            value={ageMin}
+            onChange={(e) => setAgeMin(e.target.value)}
+            placeholder="e.g. 1"
+          />
+        </label>
+        <label>
+          Maximum Age:
+          <input
+            type="number"
+            value={ageMax}
+            onChange={(e) => setAgeMax(e.target.value)}
+            placeholder="e.g. 10"
+          />
+        </label>
       </div>
       <div>
         <button onClick={() => fetchDogs()} className="search-button">
