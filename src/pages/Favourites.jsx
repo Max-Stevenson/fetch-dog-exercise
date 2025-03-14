@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NavigationHeader from "../components/NavigationHeader";
 import "./Favourites.scss";
 
 function Favourites() {
@@ -48,6 +49,8 @@ function Favourites() {
   };
 
   return (
+    <>
+    <NavigationHeader />
     <div className="favourites-page">
       <h2>Your Favourite Dogs</h2>
       {favouriteDogs.length === 0 ? (
@@ -108,6 +111,7 @@ function Favourites() {
         </>
       )}
     </div>
+    </>
   );
 }
 

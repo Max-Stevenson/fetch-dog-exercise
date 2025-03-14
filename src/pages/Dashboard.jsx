@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MultiSelectDropdown from "../components/MultiSelectDropdown";
+import NavigationHeader from "../components/NavigationHeader";
 import "./Dashboard.scss";
 
 function Dashboard() {
@@ -143,10 +144,10 @@ function Dashboard() {
 
   return (
     <>
+      <NavigationHeader />
       {/* Header Section */}
       <header className="dashboard-header">
-        <h2>Dashboard</h2>
-        <p>Welcome to the protected dashboard!</p>
+        <h1>Available Dogs</h1>
         <h3>Find your purrfect match!</h3>
         <button
           onClick={() => navigate("/favourites")}
