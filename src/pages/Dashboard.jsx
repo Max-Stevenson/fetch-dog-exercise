@@ -17,6 +17,8 @@ function Dashboard() {
   });
   const [ageMin, setAgeMin] = useState("");
   const [ageMax, setAgeMax] = useState("");
+  const [zipCodes, setZipCodes] = useState([]);
+  const [zipInput, setZipInput] = useState("");
 
   useEffect(() => {
     fetchBreeds();
@@ -36,6 +38,9 @@ function Dashboard() {
     }
     if (ageMax) {
       params.append("ageMax", ageMax);
+    }
+    if (zipCodes && zipCodes.length > 0) {
+      zipCodes.forEach((zip) => params.append("zipCodes", zip));
     }
     params.append("sort", `breed:${sortOrder}`);
     return `https://frontend-take-home-service.fetch.com/dogs/search?${params.toString()}`;
@@ -124,6 +129,18 @@ function Dashboard() {
     });
   };
 
+  const addZipCode = () => {
+    const trimmed = zipInput.trim();
+    if (trimmed && !zipCodes.includes(trimmed)) {
+      setZipCodes([...zipCodes, trimmed]);
+    }
+    setZipInput("");
+  };
+
+  const removeZipCode = (zip) => {
+    setZipCodes(zipCodes.filter((z) => z !== zip));
+  };
+
   return (
     <>
       <div>
@@ -144,6 +161,33 @@ function Dashboard() {
           onChange={setSelectedBreeds}
           placeholder="Select breeds..."
         />
+      </div>
+      <div className="zip-code-search">
+        <label>
+          Zip Codes:
+          <input
+            type="text"
+            placeholder="Enter zip code"
+            value={zipInput}
+            onChange={(e) => setZipInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addZipCode();
+              }
+            }}
+          />
+        </label>
+        <button onClick={addZipCode} className="add-zip-button">
+          Add
+        </button>
+      </div>
+      <div className="zip-code-chips">
+        {zipCodes.map((zip) => (
+          <span key={zip} className="chip">
+            {zip} <button onClick={() => removeZipCode(zip)}>×</button>
+          </span>
+        ))}
       </div>
       <div className="search-filters">
         <label>
