@@ -249,3 +249,123 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    h1 {
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+    .favourites-button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .search-controls {
+    padding: 1rem;
+    width: 95%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+
+    .dropdown-section,
+    .zip-search-section,
+    .age-filters,
+    .action-controls,
+    .sort-controls {
+      margin-bottom: 0.8rem;
+    }
+
+    .zip-search-section {
+      .zip-code-search {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+
+        label {
+          margin-bottom: 0.25rem;
+        }
+
+        input {
+          padding: 0.4rem;
+        }
+
+        .add-zip-button {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      .zip-code-chips {
+        gap: 0.25rem;
+        .chip {
+          padding: 0.2rem 0.5rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .age-filters {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        font-size: 0.8rem;
+        input {
+          padding: 0.4rem;
+        }
+      }
+    }
+
+    .action-controls {
+      .search-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    .sort-controls {
+      .sort-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .results {
+    .dog-container {
+      gap: 0.5rem;
+    }
+
+    .dog-card {
+      width: 90%;
+      padding: 0.75rem;
+      .dog-image {
+        height: 150px;
+      }
+      .dog-details {
+        p {
+          font-size: 0.8rem;
+        }
+      }
+      .favourite-button {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .pagination-button {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+}

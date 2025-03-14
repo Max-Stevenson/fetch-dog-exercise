@@ -86,3 +86,38 @@
     background-color: #2980b9;
   }
 }
+
+/* Mobile styles */
+@media (max-width: 600px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .title-card {
+    .app-title {
+      font-size: 3rem; // Reduce the title size for mobile
+    }
+    .partnership {
+      font-size: 0.9rem;
+    }
+  }
+
+  .login-card {
+    width: 90%; // Use a fluid width instead of fixed 300px
+    padding: 1.5rem; // Slightly reduce padding
+  }
+
+  .login-title {
+    font-size: 1.3rem;
+  }
+
+  .form-input {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  .login-button {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+}
