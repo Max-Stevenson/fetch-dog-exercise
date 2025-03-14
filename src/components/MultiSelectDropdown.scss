@@ -25,7 +25,8 @@
       border-radius: 0 0 4px 4px;
   
       .dropdown-option {
-        display: block;
+        display: flex;
+        align-items: center;
         padding: 4px 8px;
         cursor: pointer;
         color: black;

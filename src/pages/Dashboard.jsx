@@ -149,12 +149,6 @@ function Dashboard() {
       <header className="dashboard-header">
         <h1>Available Dogs</h1>
         <h3>Find your purrfect match!</h3>
-        <button
-          onClick={() => navigate("/favourites")}
-          className="favourites-button"
-        >
-          View Favourites
-        </button>
       </header>
 
       {/* Search Controls Section */}
@@ -227,22 +221,22 @@ function Dashboard() {
           <button onClick={() => fetchDogs()} className="search-button">
             Search
           </button>
-          <div className="sort-controls">
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="results">
+      <div className="sort-controls">
             <button
               onClick={() =>
                 setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
               }
               className="sort-button"
             >
-              Toggle Sort Order (Current:{" "}
+              Sort by: breed (
               {sortOrder === "asc" ? "Ascending" : "Descending"})
             </button>
           </div>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      <section className="results">
         <div className="dog-container">
           {dogs.map((dog) => (
             <div key={dog.id} className="dog-card">
