@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Favourites from "./pages/Favourites";
 import ProtectedRoute from "./components/ProtectedRoute";
+import "./App.scss";
 
 function App() {
   return (
