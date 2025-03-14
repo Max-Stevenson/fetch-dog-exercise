@@ -8,12 +8,21 @@ function Dashboard() {
     const [dogs, setDogs] = useState([]);
     const [breedsData, setBreeds] = useState([]);
     const [selectedBreeds, setSelectedBreeds] = useState([]);
+    const [nextPageUrl, setNextPageUrl] = useState(null);
     const [sortOrder, setSortOrder] = useState("asc");
 
     useEffect(() => {
         fetchBreeds();
         fetchDogs();
     }, [sortOrder]);
+
+  const buildInitialUrl = () => {
+    const params = new URLSearchParams();
+    if (selectedBreeds && selectedBreeds.length > 0) {
+      selectedBreeds.forEach((breed) => params.append("breeds", breed));
+    }
+    return `https://frontend-take-home-service.fetch.com/dogs/search?${params.toString()}`;
+  };
 
     const fetchBreeds = async () => {
         try {
@@ -38,21 +47,13 @@ function Dashboard() {
         }
     };
 
-    const fetchDogs = async () => {
+    const fetchDogs = async (url = null) => {
         try {
-          const params = new URLSearchParams();
-          if (selectedBreeds && selectedBreeds.length > 0) {
-            selectedBreeds.forEach(breed => params.append("breeds", breed));
-          }
-            // params.append("zipCodes", zipCodes);
-            // params.append("ageMin", ageMin);
-            // params.append("ageMax", ageMax);
-            // params.append("size", resultsPerPage);
+          const fetchUrl = url
+        ? `https://frontend-take-home-service.fetch.com${url}`
+        : buildInitialUrl();
     
-    const searchResponse = await fetch(
-        `https://frontend-take-home-service.fetch.com/dogs/search?${params.toString()}`,
-        { credentials: "include" }
-      );
+    const searchResponse = await fetch(fetchUrl, { credentials: "include" });
   
       if (searchResponse.status === 401) {
         navigate("/login");
@@ -63,6 +64,7 @@ function Dashboard() {
       if (searchResponse.status === 200) {
         const searchData = await searchResponse.json();
         ({ resultIds, total } = searchData);
+        setNextPageUrl(searchData.next);
       } else {
         console.error("Failed to fetch dogs");
         return;
@@ -128,6 +130,13 @@ function Dashboard() {
       </div>
     ))}
   </div>
+  <div className="pagination">
+        {nextPageUrl && (
+          <button onClick={() => fetchDogs(nextPageUrl)} className="search-button">
+            Next Page
+          </button>
+        )}
+      </div>
     </>
   );
 }
