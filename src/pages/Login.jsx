@@ -36,6 +36,15 @@ function Login() {
 
   return (
     <div className="login-container">
+      <div className="title-card">
+        <h1 className="app-title">Dog Adoption Portal</h1>
+        <p className="partnership">in partnership with Fetch Rewards</p>
+        <img
+          src="/images/logo.png"
+          alt="Dog Adoption Portal Logo"
+          className="logo"
+        />
+      </div>
       <div className="login-card">
         <h2 className="login-title">Login</h2>
         <form onSubmit={handleSubmit} className="login-form">
