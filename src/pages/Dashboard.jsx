@@ -153,7 +153,7 @@ function Dashboard() {
 
       {/* Search Controls Section */}
       <section className="search-controls">
-        {/* Breed Dropdown */}
+        {/* Breed Chips Input */}
         <div className="dropdown-section">
           <MultiSelectDropdown
             options={breedsData}
@@ -226,17 +226,16 @@ function Dashboard() {
 
       {/* Results Section */}
       <section className="results">
-      <div className="sort-controls">
-            <button
-              onClick={() =>
-                setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
-              }
-              className="sort-button"
-            >
-              Sort by: breed (
-              {sortOrder === "asc" ? "Ascending" : "Descending"})
-            </button>
-          </div>
+        <div className="sort-controls">
+          <button
+            onClick={() =>
+              setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
+            }
+            className="sort-button"
+          >
+            Sort by: breed ({sortOrder === "asc" ? "Ascending" : "Descending"})
+          </button>
+        </div>
         <div className="dog-container">
           {dogs.map((dog) => (
             <div key={dog.id} className="dog-card">

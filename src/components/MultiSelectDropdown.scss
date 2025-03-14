@@ -1,44 +1,91 @@
 .multi-select-dropdown {
-    position: relative;
-    width: 250px;
-  
-    .dropdown-header {
-      border: 1px solid #ccc;
-      padding: 8px;
-      background: #fff;
+  position: relative;
+  width: 100%;
+  font-family: sans-serif;
+
+  .selector-chips-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .selector-container {
+    flex-shrink: 0;
+    width: 50%;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .selector-text {
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .arrow {
+    font-size: 0.8rem;
+    color: #333;
+    margin-left: 4px;
+  }
+
+  .chips-container {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    background-color: #e0e0e0;
+    border-radius: 16px;
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+
+    .remove-chip {
+      margin-left: 4px;
+      background: none;
+      border: none;
       cursor: pointer;
-      border-radius: 4px;
-      color: black;
+      font-size: 1rem;
+      line-height: 1;
     }
-  
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-top: none;
-      max-height: 200px;
-      overflow-y: auto;
-      z-index: 10;
-      border-radius: 0 0 4px 4px;
-  
-      .dropdown-option {
-        display: flex;
-        align-items: center;
-        padding: 4px 8px;
-        cursor: pointer;
-        color: black;
-  
-        &:hover {
-          background: #f0f0f0;
-        }
-  
-        input {
-          margin-right: 6px;
-        }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    border-radius: 0 0 4px 4px;
+
+    .dropdown-option {
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+      font-size: 0.9rem;
+      color: #000;
+      cursor: pointer;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+
+      input {
+        margin-right: 6px;
       }
     }
   }
-  
+}
