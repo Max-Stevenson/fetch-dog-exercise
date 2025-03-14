@@ -25,6 +25,7 @@ function Dashboard() {
     if (selectedBreeds && selectedBreeds.length > 0) {
       selectedBreeds.forEach((breed) => params.append("breeds", breed));
     }
+    params.append("sort", `breed:${sortOrder}`);
     return `https://frontend-take-home-service.fetch.com/dogs/search?${params.toString()}`;
   };
 
@@ -121,6 +122,18 @@ function Dashboard() {
           Search
         </button>
       </div>
+      <div className="sort-controls">
+        <button
+          onClick={() =>
+            setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
+          }
+          className="sort-button"
+        >
+          Toggle Sort Order (Current:{" "}
+          {sortOrder === "asc" ? "Ascending" : "Descending"})
+        </button>
+      </div>
+
       <div className="dog-container">
         {dogs.map((dog) => (
           <div key={dog.id} className="dog-card">
