@@ -14,8 +14,11 @@ function Dashboard() {
 
   useEffect(() => {
     fetchBreeds();
+  }, []);
+
+  useEffect(() => {
     fetchDogs();
-  }, [sortOrder]);
+  }, [selectedBreeds, sortOrder]);
 
   const buildInitialUrl = () => {
     const params = new URLSearchParams();
@@ -114,7 +117,7 @@ function Dashboard() {
         />
       </div>
       <div>
-        <button onClick={fetchDogs} className="search-button">
+        <button onClick={() => fetchDogs()} className="search-button">
           Search
         </button>
       </div>
