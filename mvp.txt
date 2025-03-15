@@ -13,3 +13,4 @@ Improvements:
 - More mobile optimization.
 - Unit tests.
 - Add result size param.
+- Ability to clear search info.
