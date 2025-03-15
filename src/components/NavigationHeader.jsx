@@ -1,7 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-  const { setIsAuthenticated } = useAuth();
 import "./NavigationHeader.scss";
 
 function NavigationHeader() {
@@ -17,7 +15,6 @@ function NavigationHeader() {
         }
       );
       if (response.ok) {
-        setIsAuthenticated(false);
         navigate("/login");
       } else {
         console.error("Logout failed");
