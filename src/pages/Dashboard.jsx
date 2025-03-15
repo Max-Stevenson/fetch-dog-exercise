@@ -168,6 +168,7 @@ function Dashboard() {
           <div className="zip-code-search">
             <label>
               Zip Codes:
+              </label>
               <input
                 type="text"
                 placeholder="Enter zip code"
@@ -180,7 +181,6 @@ function Dashboard() {
                   }
                 }}
               />
-            </label>
             <button onClick={addZipCode} className="add-zip-button">
               Add
             </button>
