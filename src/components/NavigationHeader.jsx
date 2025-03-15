@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+  const { setIsAuthenticated } = useAuth();
 import "./NavigationHeader.scss";
 
 function NavigationHeader() {
@@ -7,11 +9,15 @@ function NavigationHeader() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://frontend-take-home-service.fetch.com/auth/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
       if (response.ok) {
+        setIsAuthenticated(false);
         navigate("/login");
       } else {
         console.error("Logout failed");

@@ -166,21 +166,19 @@ function Dashboard() {
         {/* Zip Code Search */}
         <div className="zip-search-section">
           <div className="zip-code-search">
-            <label>
-              Zip Codes:
-              </label>
-              <input
-                type="text"
-                placeholder="Enter zip code"
-                value={zipInput}
-                onChange={(e) => setZipInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    addZipCode();
-                  }
-                }}
-              />
+            <label>Zip Codes:</label>
+            <input
+              type="text"
+              placeholder="Enter zip code"
+              value={zipInput}
+              onChange={(e) => setZipInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addZipCode();
+                }
+              }}
+            />
             <button onClick={addZipCode} className="add-zip-button">
               Add
             </button>
